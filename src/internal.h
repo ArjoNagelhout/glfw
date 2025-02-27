@@ -559,6 +559,7 @@ struct _GLFWwindow
     char                keys[GLFW_KEY_LAST + 1];
     // Virtual cursor position when cursor is disabled
     double              virtualCursorPosX, virtualCursorPosY;
+    double              centerCursorPosX, centerCursorPosY;
     GLFWbool            rawMouseMotion;
 
     _GLFWcontext        context;

@@ -99,6 +99,12 @@ static void updateCursorMode(_GLFWwindow* window)
                                &_glfw.ns.restoreCursorPosX,
                                &_glfw.ns.restoreCursorPosY);
         _glfwCenterCursorInContentArea(window);
+        {
+            // arjo hacky
+            const NSPoint pos = [window->ns.object mouseLocationOutsideOfEventStream];
+            window->centerCursorPosX = pos.x;
+            window->centerCursorPosY = pos.y;
+        }
         CGAssociateMouseAndMouseCursorPosition(false);
     }
     else if (_glfw.ns.disabledCursorWindow == window)
@@ -418,6 +424,15 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 - (void)mouseDragged:(NSEvent *)event
 {
     printf("mouseDragged (calls mouseMoved:)\n");
+
+    // check if this dragged event is outdated
+    if (window->cursorMode == GLFW_CURSOR_DISABLED) {
+        if (event.locationInWindow.x != window->centerCursorPosX ||
+            event.locationInWindow.y != window->centerCursorPosY) {
+            return;
+        }
+    }
+
     [self mouseMoved:event];
 }
 
