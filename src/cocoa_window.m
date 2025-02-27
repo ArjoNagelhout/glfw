@@ -91,6 +91,7 @@ static void updateCursorMode(_GLFWwindow* window)
 {
     if (window->cursorMode == GLFW_CURSOR_DISABLED)
     {
+        printf("updateCursorMode GLFW_CURSOR_DISABLED\n");
         _glfw.ns.disabledCursorWindow = window;
         _glfwGetCursorPosCocoa(window,
                                &_glfw.ns.restoreCursorPosX,
@@ -100,6 +101,7 @@ static void updateCursorMode(_GLFWwindow* window)
     }
     else if (_glfw.ns.disabledCursorWindow == window)
     {
+        printf("updateCursorMode GLFW_CURSOR_NORMAL\n");
         _glfw.ns.disabledCursorWindow = NULL;
         _glfwSetCursorPosCocoa(window,
                                _glfw.ns.restoreCursorPosX,
@@ -1604,6 +1606,7 @@ void _glfwGetCursorPosCocoa(_GLFWwindow* window, double* xpos, double* ypos)
 
 void _glfwSetCursorPosCocoa(_GLFWwindow* window, double x, double y)
 {
+    printf("_glfwSetCursorPosCocoa(%f, %f)\n", x, y);
     @autoreleasepool {
 
     updateCursorImage(window);
