@@ -416,6 +416,7 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
 - (void)mouseDragged:(NSEvent *)event
 {
+    printf("mouseDragged\n");
     [self mouseMoved:event];
 }
 
@@ -431,8 +432,15 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 {
     if (window->cursorMode == GLFW_CURSOR_DISABLED)
     {
+        printf("mouseMoved (GLFW_CURSOR_DISABLED)\n");
         const double dx = [event deltaX] - window->ns.cursorWarpDeltaX;
         const double dy = [event deltaY] - window->ns.cursorWarpDeltaY;
+        printf("\tevent.delta: %f, %f\n", [event deltaX], [event deltaY]);
+        printf("\tevent.locationInWindow (y flipped): %f, %f",
+               [event locationInWindow].x, [event locationInWindow].y);
+        printf("\tcursorWarpDelta: %f, %f\n",
+               window->ns.cursorWarpDeltaX,
+               window->ns.cursorWarpDeltaY);
 
         _glfwInputCursorPos(window,
                             window->virtualCursorPosX + dx,
@@ -1608,7 +1616,7 @@ void _glfwGetCursorPosCocoa(_GLFWwindow* window, double* xpos, double* ypos)
 
 void _glfwSetCursorPosCocoa(_GLFWwindow* window, double x, double y)
 {
-    printf("_glfwSetCursorPosCocoa(%f, %f)\n", x, y);
+    printf("\t_glfwSetCursorPosCocoa(%f, %f)\n", x, y);
     @autoreleasepool {
 
     updateCursorImage(window);
@@ -1616,13 +1624,13 @@ void _glfwSetCursorPosCocoa(_GLFWwindow* window, double x, double y)
     const NSRect contentRect = [window->ns.view frame];
     // NOTE: The returned location uses base 0,1 not 0,0
     const NSPoint pos = [window->ns.object mouseLocationOutsideOfEventStream];
-    printf("mouseLocationOutsideOfEventStream (y flipped) = %f, %f\n",
+    printf("\t\tmouseLocationOutsideOfEventStream (y flipped): %f, %f\n",
            pos.x,
            contentRect.size.height - pos.y);
 
     window->ns.cursorWarpDeltaX += x - pos.x;
     window->ns.cursorWarpDeltaY += y - contentRect.size.height + pos.y;
-    printf("window->ns.cursorWarpDelta = %f, %f\n",
+    printf("\t\twindow->ns.cursorWarpDelta: %f, %f\n",
            window->ns.cursorWarpDeltaX,
            window->ns.cursorWarpDeltaY);
 
