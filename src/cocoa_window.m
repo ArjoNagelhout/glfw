@@ -82,7 +82,9 @@ static void updateCursorImage(_GLFWwindow* window)
             [[NSCursor arrowCursor] set];
     }
     else
-        hideCursor(window);
+    {
+        // hideCursor(window);
+    }
 }
 
 // Apply chosen cursor mode to a focused window
