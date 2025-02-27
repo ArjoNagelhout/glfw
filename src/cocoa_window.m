@@ -1616,7 +1616,9 @@ void _glfwSetCursorPosCocoa(_GLFWwindow* window, double x, double y)
     const NSRect contentRect = [window->ns.view frame];
     // NOTE: The returned location uses base 0,1 not 0,0
     const NSPoint pos = [window->ns.object mouseLocationOutsideOfEventStream];
-    printf("mouseLocationOutsideOfEventStream = %f, %f\n", pos.x, pos.y);
+    printf("mouseLocationOutsideOfEventStream (y flipped) = %f, %f\n",
+           pos.x,
+           contentRect.size.height - pos.y);
 
     window->ns.cursorWarpDeltaX += x - pos.x;
     window->ns.cursorWarpDeltaY += y - contentRect.size.height + pos.y;

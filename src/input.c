@@ -616,6 +616,9 @@ GLFWAPI void glfwSetInputMode(GLFWwindow* handle, int mode, int value)
             _glfw.platform.getCursorPos(window,
                                         &window->virtualCursorPosX,
                                         &window->virtualCursorPosY);
+            printf("virtualCursorPos before setCursorMode: %f, %f\n",
+                   window->virtualCursorPosX,
+                   window->virtualCursorPosY);
             _glfw.platform.setCursorMode(window, value);
             return;
         }
