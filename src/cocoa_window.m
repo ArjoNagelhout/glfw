@@ -416,7 +416,7 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
 - (void)mouseDragged:(NSEvent *)event
 {
-    printf("mouseDragged\n");
+    printf("mouseDragged (calls mouseMoved:)\n");
     [self mouseMoved:event];
 }
 
