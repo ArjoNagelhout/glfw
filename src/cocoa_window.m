@@ -436,9 +436,9 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         const double dx = [event deltaX] - window->ns.cursorWarpDeltaX;
         const double dy = [event deltaY] - window->ns.cursorWarpDeltaY;
         printf("\tevent.delta: %f, %f\n", [event deltaX], [event deltaY]);
-        printf("\tevent.locationInWindow (y flipped): %f, %f",
+        printf("\tevent.locationInWindow (y flipped): %f, %f, ",
                [event locationInWindow].x, [event locationInWindow].y);
-        printf("\tcursorWarpDelta: %f, %f\n",
+        printf("cursorWarpDelta: %f, %f\n",
                window->ns.cursorWarpDeltaX,
                window->ns.cursorWarpDeltaY);
 
